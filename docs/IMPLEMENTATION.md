@@ -12,7 +12,11 @@ In the container image decryption operation of kata cc V0 architecture, ocicrypt
 }
 ```
 
+<<<<<<< HEAD
 At present, the implementation of AA adopts the scheme of obtaining IP and port from the input parameters at startup. If there are no startup parameters, it will listen to the fixed address 127.0.0.1:44444.
+=======
+At present, the implementation of AA adopts the scheme of listening to the fixed port number 44444.
+>>>>>>> 8eba875 (Add docs dir and IMPLEMENTATION.md)
 
 ### gRPC and ttRPC
 
