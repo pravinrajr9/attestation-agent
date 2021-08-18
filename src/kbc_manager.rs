@@ -49,6 +49,12 @@ impl KbcManager {
             self.kbc_instance_list
                 .insert(String::from("sample_kbc"), sample_kbc_instance);
         }
+        #[cfg(feature = "eaa_kbc")]
+        {
+            let eaa_kbc_instance = Box::new(kbc_modules::eaa_kbc::EAAKbc::new());
+            self.kbc_instance_list
+                .insert(String::from("eaa_kbc"), eaa_kbc_instance);
+        }
         ()
     }
 
