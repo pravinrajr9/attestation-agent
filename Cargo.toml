@@ -21,6 +21,7 @@ string-error = "0.1.0"
 protoc-grpcio = { version = "3.0.0", optional = true }
 
 [features]
-default = ["grpc"]
+default = ["sample_kbc", "grpc"]
 grpc = ["protoc-grpcio", "grpcio"]
 ttrpc = []
+sample_kbc = []

@@ -5,3 +5,5 @@
 
 // Add your specific kbc declaration here.
 // For example: "pub mod sample_kbc;"
+#[cfg(feature = "sample_kbc")]
+pub mod sample_kbc;
