@@ -44,6 +44,12 @@ impl KbcManager {
     // The list of KBC modules supported by AA is the feature default field specified at compile time,
     // please refer to ../Cargo.toml for details
     pub fn init(&mut self) {
+        #[cfg(feature = "sample_kbc")]
+        {
+            let sample_kbc_instance = Box::new(kbc_modules::sample_kbc::SampleKbc::new());
+            self.kbc_instance_list
+                .insert(String::from("sample_kbc"), sample_kbc_instance);
+        }
         ()
     }
 
