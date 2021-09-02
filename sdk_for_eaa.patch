@@ -1,0 +1,86 @@
+From 2c236163249f3a39ac7f59e1a4d7658809b615b5 Mon Sep 17 00:00:00 2001
+From: Jiale Zhang <zhangjiale@linux.alibaba.com>
+Date: Thu, 2 Sep 2021 16:32:26 +0800
+Subject: [PATCH] patch_for_eaa
+
+---
+ sgx_tstd/src/lib.rs            | 2 +-
+ sgx_tstd/src/net/mod.rs        | 2 --
+ sgx_tstd/src/sys/mod.rs        | 1 -
+ sgx_tstd/src/sys_common/mod.rs | 1 -
+ xargo/sgx_tstd/Cargo.toml      | 2 +-
+ 5 files changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/sgx_tstd/src/lib.rs b/sgx_tstd/src/lib.rs
+index aa451856..9e035754 100644
+--- a/sgx_tstd/src/lib.rs
++++ b/sgx_tstd/src/lib.rs
+@@ -234,7 +234,7 @@ pub mod future;
+ 
+ // Platform-abstraction modules
+ #[macro_use]
+-mod sys_common;
++pub mod sys_common;
+ mod sys;
+ 
+ pub mod alloc;
+diff --git a/sgx_tstd/src/net/mod.rs b/sgx_tstd/src/net/mod.rs
+index 4c9b045f..9d6b5e7c 100644
+--- a/sgx_tstd/src/net/mod.rs
++++ b/sgx_tstd/src/net/mod.rs
+@@ -25,7 +25,6 @@ use crate::io::{self, Error, ErrorKind};
+ 
+ pub use self::ip::{IpAddr, Ipv4Addr, Ipv6Addr, Ipv6MulticastScope};
+ pub use self::addr::{SocketAddr, SocketAddrV4, SocketAddrV6, ToSocketAddrs};
+-#[cfg(feature = "net")]
+ pub use self::tcp::TcpStream;
+ #[cfg(feature = "net")]
+ pub use self::tcp::TcpListener;
+@@ -36,7 +35,6 @@ pub use self::parser::AddrParseError;
+ mod ip;
+ mod addr;
+ mod parser;
+-#[cfg(feature = "net")]
+ mod tcp;
+ #[cfg(feature = "net")]
+ mod udp;
+diff --git a/sgx_tstd/src/sys/mod.rs b/sgx_tstd/src/sys/mod.rs
+index 15c64416..8f7fa2dd 100644
+--- a/sgx_tstd/src/sys/mod.rs
++++ b/sgx_tstd/src/sys/mod.rs
+@@ -34,7 +34,6 @@ pub mod thread;
+ pub mod fast_thread_local;
+ #[cfg(feature = "thread")]
+ pub mod thread_local;
+-#[cfg(feature = "net")]
+ pub mod net;
+ pub mod path;
+ pub mod ext;
+diff --git a/sgx_tstd/src/sys_common/mod.rs b/sgx_tstd/src/sys_common/mod.rs
+index 655be884..1c6db827 100644
+--- a/sgx_tstd/src/sys_common/mod.rs
++++ b/sgx_tstd/src/sys_common/mod.rs
+@@ -57,7 +57,6 @@ pub mod thread;
+ pub mod thread_local;
+ pub mod util;
+ pub mod wtf8;
+-#[cfg(feature = "net")]
+ pub mod net;
+ pub mod bytestring;
+ pub mod fs;
+diff --git a/xargo/sgx_tstd/Cargo.toml b/xargo/sgx_tstd/Cargo.toml
+index 391c5b1f..f1c94ffb 100644
+--- a/xargo/sgx_tstd/Cargo.toml
++++ b/xargo/sgx_tstd/Cargo.toml
+@@ -11,7 +11,7 @@ path = "../../sgx_tstd/src/lib.rs"
+ crate-type = ["rlib"]
+ 
+ [features]
+-default = ["stdio"]
++default = ["stdio", "net"]
+ backtrace = ["stdio"]
+ stdio = []
+ net = []
+-- 
+2.18.2
+

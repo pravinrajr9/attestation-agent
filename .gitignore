@@ -1,6 +1,13 @@
-.DS_store
+**/*_u.c
+**/*_u.h
+**/*_t.c
+**/*_t.h
+/bin
+**/target
+*.o
+*.so
+*.so.*
 Cargo.lock
+.DS_store
+readme.txt
 
-# Added by cargo
-
-/target
