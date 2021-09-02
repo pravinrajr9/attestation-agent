@@ -35,7 +35,7 @@ impl KeyProviderService for KeyProvider {
         let input: KeyProviderInput =
             serde_json::from_str::<KeyProviderInput>(&input_string[..]).unwrap();
 
-        let plain_optsdata = input.keywrapparams.optsdata.unwrap();
+        let plain_optsdata = input.keywrapparams.optsdata;
         let encrypt_optsdata = encrypt_key(&base64::decode(plain_optsdata).unwrap()).unwrap();
 
         let annotation_struct = AnnotationPacket {
@@ -75,14 +75,13 @@ impl KeyProviderService for KeyProvider {
         let input: KeyProviderInput =
             serde_json::from_str::<KeyProviderInput>(&input_string[..]).unwrap();
 
-        let base64_annotation = input.keyunwrapparams.annotation.unwrap();
+        let base64_annotation = input.keyunwrapparams.annotation;
         let vec_annotation = base64::decode(base64_annotation).unwrap();
         let str_annotation: &str = str::from_utf8(&vec_annotation).unwrap();
         println!("vec_annotation: {:?}", vec_annotation);
         let annotation_packet: AnnotationPacket = serde_json::from_str(str_annotation).unwrap();
         let wrapped_key = annotation_packet.wrapped_key;
         let decrypt_optsdata = decrypt_key(&wrapped_key).unwrap();
-
         let output_struct = KeyUnwrapOutput {
             keyunwrapresults: KeyUnwrapResults {
                 optsdata: decrypt_optsdata,

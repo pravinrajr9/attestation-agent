@@ -14,13 +14,13 @@ pub struct KeyProviderInput {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct KeyWrapParams {
     pub ec: Option<Ec>,
-    pub optsdata: Option<String>,
+    pub optsdata: Vec<u8>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Ec {
-    pub Parameters: HashMap<String, Vec<String>>,
-    pub DecryptConfig: Dc,
+    pub Parameters: HashMap<String, Vec<Vec<u8>>>,
+    pub DecryptConfig: Option<Dc>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -36,12 +36,12 @@ pub struct KeyWrapResults {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct KeyUnwrapParams {
     pub dc: Option<Dc>,
-    pub annotation: Option<String>,
+    pub annotation: Vec<u8>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Dc {
-    pub Parameters: HashMap<String, Vec<String>>,
+    pub Parameters: HashMap<String, Vec<Vec<u8>>>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
